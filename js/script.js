@@ -4,9 +4,6 @@
             once: true
         });
 
-        // Initialize EmailJS with your public key
-        emailjs.init("YOUR_PUBLIC_KEY");
-
         // Back to top button
         const backToTopButton = document.querySelector('.back-to-top');
         
@@ -45,8 +42,30 @@
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // In a real implementation, you would use EmailJS to send the form data
-            // For demonstration, we'll show a success message
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            // Create mailto link
+            const mailtoLink = `mailto:asmitshrestha24@gmail.com
+            ?cc=${encodeURIComponent(email)}
+            &subject=${encodeURIComponent(subject)}
+            &body=${encodeURIComponent(
+            `You have received a new contact form message:\n\n` +
+            `-------------------------\n` +
+            `👤 Name: ${name}\n` +
+            `📧 Email: ${email}\n` +
+            `-------------------------\n\n` +
+            `💬 Message:\n${message}\n\n` +
+            `-------------------------\n` +
+            `This message was sent from your portfolio website contact form.`
+            )}`;
+
+            
+            // Open email client
+            window.location.href = mailtoLink;
             
             Swal.fire({
                 title: 'Message Sent!',
